@@ -59,10 +59,40 @@ class Employee(models.Model):
 
 class Employer(models.Model):
 
-    name = models.CharField(max_length=200, null=True)
+    company_name = models.CharField(max_length=200, null=True)
     phone = models.CharField(max_length=200, null=True)
     email = models.CharField(max_length=200, null=True)
+    address = models.CharField(max_length=2000, null=True)
     date_created = models.DateTimeField(auto_now_add=True)
+    user = models.OneToOneField(
+        settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    logo = models.ImageField(default='avatar.jpg', upload_to='avatars/')
+    city = models.CharField(max_length=200, null=True)
+    county = models.CharField(max_length=200, null=True)
+    sector = models.CharField(max_length=200, null=True)
+    slug2 = models.SlugField(unique=True, blank=True)
 
     def __str__(self):
-        return self.name
+        return f"{self.user}-{self.date_created}"
+
+    __initial_company_name = None
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.__initial_company_name = self.company_name
+
+    def save(self, *args, **kwargs):
+        ex = False
+        to_slug = self.slug2
+        if self.company_name != self.__initial_company_name or self.slug2 == "":
+            if self.company_name:
+                to_slug = slugify(str(self.company_name) +
+                                  " ")
+                ex = Employer.objects.filter(slug=to_slug).exists()
+                while ex:
+                    to_slug = slugify(to_slug + " " + str(get_random_code()))
+                    ex = Employer.objects.filter(slug2=to_slug).exists()
+            else:
+                to_slug = str(self.user)
+        self.slug2 = to_slug
+        super().save(*args, **kwargs)
