@@ -5,7 +5,14 @@ from django.http import HttpResponse
 
 
 def home(request):
-    return render(request, 'employee/dashboard.html')
+    user = request.user
+    hello = 'Hello world'
+
+    context = {
+        'user': user,
+        'hello': hello,
+    }
+    return render(request, 'main/home.html')
 
 
 def employee(request):

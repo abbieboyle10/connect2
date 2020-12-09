@@ -1,4 +1,4 @@
-{% extends 'employee/main.html' %}
+{% extends 'base/main.html' %}
 
 {% block content %}
 
@@ -21,6 +21,17 @@
     <link href="css/heroic-features.css" rel="stylesheet">
 
 </head>
+
+
+{{user}}
+
+{% block scripts %}
+<script>
+    $(document).ready(function () {
+        console.log('working')
+    })
+</script>
+{% endblock scripts %}
 
 
 

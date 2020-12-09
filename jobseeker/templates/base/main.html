@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
         integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 
-    <link rel="stylesheet" type="text/css" href="{% static '/css/main.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static '/style.css' %}">
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=, initial-scale=1.0">
@@ -18,7 +18,7 @@
 </head>
 
 <body>
-    {%  include 'employee/navbar.html' %}
+    {%  include 'base/navbar.html' %}
     <div class="container-fluid">
         {% block content %}
 
@@ -28,7 +28,7 @@
     </div>
 
 
-    <h5> Footer ha</h5>
+    <h5> Footer</h5>
 
 </body>
 
@@ -41,5 +41,8 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
     integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
     crossorigin="anonymous"></script>
+
+#custom js
+<script type="text/javascript" src={% static 'main.js' %}></script>
 
 </html>
