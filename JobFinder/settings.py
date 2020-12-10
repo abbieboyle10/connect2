@@ -39,7 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
-    'jobseeker',
+    'jobseeker', 'connect2'
 ]
 
 MIDDLEWARE = [

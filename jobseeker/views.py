@@ -1,27 +1,34 @@
 from django.shortcuts import render
+from django.conf import settings
 from django.http import HttpResponse
+from .models import *
 
 # Create your views here.
 
 
-def home(request):
-    user = request.user
-    hello = 'Hello world'
+def employer(request=settings.AUTH_USER_MODEL):
+    employer = Employer_Basics.objects.get(user=request.user)
 
     context = {
-        'user': user,
-        'hello': hello,
+        'Employer_Basics': employer,
     }
-    return render(request, 'main/home.html')
+
+    return render(request, 'employee/employer.html', context)
 
 
-def employee(request):
-    return render(request, 'employee/employee.html')
-
-
-def employer(request):
-    return render(request, 'employee/employer.html')
+def my_employee(request):
+    return render(request, 'employee/my_employee.html')
 
 
 def login(request):
     return render(request, 'employee/login.html')
+
+
+def employee(request=settings.AUTH_USER_MODEL):
+    employee = Employee_Basics.objects.get(user=request.user)
+
+    context = {
+        'Employee_Basics': employee,
+    }
+
+    return render(request, 'employee/employee.html', context)

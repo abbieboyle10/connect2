@@ -47,9 +47,17 @@ class Employee_Basics(models.Model):
     slug = models.SlugField(unique=True, blank=True)
     updated = models.DateTimeField(auto_now=True)
     date_created = models.DateTimeField(auto_now_add=True)
+    current_company = models.CharField(max_length=200, null=True)
+    bio = models.CharField(max_length=2000, null=True)
 
     def __str__(self):
         return f"{self.user}-{self.date_created.strftime('%d-%m-%Y')}"
+
+    def get_liked(self):
+        return self.liked.all()
+
+    def get_liked_no(self):
+        return self.liked.all().count()
 
     __initial_first_name = None
     __initial_last_name = None
@@ -137,7 +145,7 @@ class Employer_Basics(models.Model):
         super().__init__(*args, **kwargs)
         self.__initial_company_name = self.company_name
 
-    def save(self, *args, **kwargs):
+    def save2(self, *args, **kwargs):
         ex = False
         to_slug = self.slug2
         if self.company_name != self.__initial_company_name or self.slug2 == "":

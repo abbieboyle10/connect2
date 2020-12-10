@@ -1,10 +1,18 @@
 from django.urls import path
-from . import views
+from .views import (
+    employee,
+    employer,
+    my_employee
+)
+
+app_name = 'jobseeker'
 
 urlpatterns = [
-    path('', views.home),
-    path('employee/', views.employee),
-    path('employer/', views.employer),
-    path('login/', views.login),
+
+
+    path('employer/', employer, name='employer'),
+    path('employee/', employee, name='employee'),
+    path('my_employee/', my_employee, name='my_employee'),
+
 
 ]
